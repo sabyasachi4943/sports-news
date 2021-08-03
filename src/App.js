@@ -8,7 +8,7 @@ class App extends React.Component {
 
     this.state = {
       result:{},
-      page:"",
+      page:"home",
       isloaded: false
     };
   }
@@ -49,24 +49,30 @@ class App extends React.Component {
   }
 
   render() {
-
+    // In case user goes to home page
     if(this.state.page == "home"){
-      
-    }
-
-
-    if(this.state.isloaded){
-      return (
-        <div>
-          <div className = "navbar">
-            <a className= "" onClick={()=>{this.changePage("home")}}>Home</a>
-            <a onclick={()=>{this.changePage("about")}}> About us</a>
+      if(this.state.isloaded){
+        return (
+          <div>
+            <div className = "navbar">
+              <a className= "" onClick={()=>{this.changePage("home")}}>Home</a>
+              <a onClick={()=>{this.changePage("about")}}> About us</a>
+            </div>
+            {this.state.result.articles.map((item, index)=>{
+              return <Headlines title={item.title} description={item.description} image={item.urlToImage}></Headlines>
+            })}
           </div>
-          {this.state.result.articles.map((item, index)=>{
-            return <Headlines title={item.title} description={item.description} image={item.urlToImage}></Headlines>
-          })}
-        </div>
-      );
+        );
+      } else {
+        return (
+          <div>
+            <div className = "navbar">
+              <a className= "" onClick={()=>{this.changePage("home")}}>Home</a>
+              <a onClick={()=>{this.changePage("about")}}> About us</a>
+            </div>
+          </div>
+        );
+      }
     } else {
       return (
         <div>
@@ -74,10 +80,11 @@ class App extends React.Component {
             <a className= "" onClick={()=>{this.changePage("home")}}>Home</a>
             <a onclick={()=>{this.changePage("about")}}> About us</a>
           </div>
+          <div>About us</div>
         </div>
-      );
+      ); 
     }
-    
+ 
   }
   
 }
